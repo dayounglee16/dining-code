@@ -7,20 +7,16 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "swiper/css/scrollbar";
 
 const Place = ({ place, addPlace, setAddPlace }) => {
   const onClickAddPlace = (action) => {
     const addItem = place.filter((placeItem) => placeItem.id === action.id);
 
-    if (addPlace.length === action.id) {
-      alert("동일한 장소가 있습니다.");
+    if (addPlace.some((item) => item.id === action.id)) {
+      alert("동일한 장소가 좋아요 목록에 있습니다.");
     } else if (addItem) {
       setAddPlace([...addPlace, ...addItem]);
     }
-    console.log(`action.id : ${action.id}`);
-    console.log(`addItem : ${addItem}`);
-    console.log(`addPlace : ${addPlace}`);
   };
 
   return (

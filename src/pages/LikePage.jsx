@@ -3,8 +3,8 @@ import getCafeImage from "../Util/get-cafe-image";
 import mainlogo from "./../images/logo.png";
 
 const LikePage = ({ addPlace, navigate, setAddPlace }) => {
-  const onClickRemoveItem = (deleteid) => {
-    setAddPlace(addPlace.filter((placeItem) => placeItem.id !== deleteid));
+  const onClickRemoveItem = (deleteId) => {
+    setAddPlace(addPlace.filter((placeItem) => placeItem.id !== deleteId));
   };
 
   return (
