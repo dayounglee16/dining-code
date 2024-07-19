@@ -11,20 +11,29 @@ import "swiper/css/scrollbar";
 
 const Place = ({ place, addPlace, setAddPlace }) => {
   const onClickAddPlace = (action) => {
-    const addItem = addPlace.filter((placeItem) => placeItem.id === action.id);
-    addPlace.push(addItem);
-    // if (addItem) {
-    //   setAddPlace([...addPlace, addItem]);
-    // }
+    const addItem = place.filter((placeItem) => placeItem.id === action.id);
+
+    if (addPlace.length === action.id) {
+      alert("동일한 장소가 있습니다.");
+    } else if (addItem) {
+      setAddPlace([...addPlace, ...addItem]);
+    }
+    console.log(`action.id : ${action.id}`);
+    console.log(`addItem : ${addItem}`);
+    console.log(`addPlace : ${addPlace}`);
   };
 
   return (
     <Container>
+      <Prev className="swiper-button-prev" />
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={100}
         slidesPerView={4}
-        navigation
+        navigation={{
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        }}
         loop={true}
       >
         {place.map((item, i) => {
@@ -40,20 +49,23 @@ const Place = ({ place, addPlace, setAddPlace }) => {
                 </PlaceBox>
                 <PlaceTitle>
                   <h4>{item.title}</h4>
-                  <HeartBtn
-                    onClick={onClickAddPlace({
-                      id: item.id,
-                      title: item.title,
-                    })}
+                  <LikeBtn
+                    onClick={() =>
+                      onClickAddPlace({
+                        id: item.id,
+                        title: item.title,
+                      })
+                    }
                   >
                     좋아요
-                  </HeartBtn>
+                  </LikeBtn>
                 </PlaceTitle>
               </PlaceItem>
             </SwiperSlide>
           );
         })}
       </Swiper>
+      <Next className="swiper-button-next" />
     </Container>
   );
 };
@@ -86,7 +98,10 @@ const PlaceTitle = styled.div`
   justify-content: space-between;
 `;
 
-const HeartBtn = styled.button`
+const LikeBtn = styled.button`
+  &:active {
+    background-color: rgba(25, 183, 194, 0.694);
+  }
   border: none;
   background-color: rgb(25, 183, 194);
   color: #fff;
@@ -96,4 +111,26 @@ const HeartBtn = styled.button`
   border-radius: 25px;
   font-size: 12px;
   cursor: pointer;
+`;
+
+const Prev = styled.button`
+  position: absolute;
+  top: 40%;
+  left: -100px;
+  cursor: pointer;
+  color: rgb(25, 183, 194);
+  border: none;
+  font-size: 26px;
+  background-color: #f8fcfc;
+`;
+
+const Next = styled.button`
+  position: absolute;
+  top: 40%;
+  right: -100px;
+  cursor: pointer;
+  color: rgb(25, 183, 194);
+  border: none;
+  font-size: 26px;
+  background-color: #f8fcfc;
 `;

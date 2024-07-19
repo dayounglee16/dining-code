@@ -11,20 +11,7 @@ import { useState } from "react";
 
 function App() {
   const place = data;
-  const [addPlace, setAddPlace] = useState([
-    {
-      id: 1,
-      title: "브릿지커피",
-      fileName: "bridge",
-      isLoding: false,
-    },
-    {
-      id: 2,
-      title: "뜻밖에",
-      fileName: "unexpectedly",
-      isLoding: false,
-    },
-  ]);
+  const [addPlace, setAddPlace] = useState([]);
 
   const navigate = useNavigate();
 
@@ -56,7 +43,13 @@ function App() {
 
         <Route
           path="/likepage"
-          element={<LikePage addPlace={addPlace} navigate={navigate} />}
+          element={
+            <LikePage
+              addPlace={addPlace}
+              setAddPlace={setAddPlace}
+              navigate={navigate}
+            />
+          }
         />
       </Routes>
     </>
