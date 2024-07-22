@@ -2,11 +2,7 @@ import styled from "styled-components";
 import getCafeImage from "../Util/get-cafe-image";
 import mainlogo from "./../images/logo.png";
 
-const LikePage = ({ addPlace, navigate, setAddPlace }) => {
-  const onClickRemoveItem = (deleteId) => {
-    setAddPlace(addPlace.filter((placeItem) => placeItem.id !== deleteId));
-  };
-
+const LikePage = ({ addPlace, navigate }) => {
   return (
     <Container>
       <Title>
@@ -24,9 +20,6 @@ const LikePage = ({ addPlace, navigate, setAddPlace }) => {
             <PlaceItem key={i}>
               <img src={getCafeImage(item.id)} width="220px" alt={item.title} />
               <h4>{item.title}</h4>
-              <DeleteBtn onClick={() => onClickRemoveItem(item.id)}>
-                삭제
-              </DeleteBtn>
             </PlaceItem>
           ))
         ) : (
@@ -72,17 +65,4 @@ const PlaceItem = styled.div`
   flex-direction: column;
   gap: 5px;
   margin-top: 40px;
-`;
-
-const DeleteBtn = styled.button`
-  &:active {
-    background-color: rgba(79, 189, 187, 0.806);
-  }
-  border: none;
-  border-radius: 5px;
-  margin-top: 5px;
-  padding: 5px;
-  color: #fff;
-  cursor: pointer;
-  background-color: rgb(79, 189, 188);
 `;
