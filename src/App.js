@@ -6,13 +6,8 @@ import mainlogo from "./images/logo.png";
 import LikeListBtn from "./component/LikeListBtn";
 import LikePage from "./pages/LikePage";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import data from "./datas/data";
-import { useState } from "react";
 
 function App() {
-  const place = data;
-  const [addPlace, setAddPlace] = useState([]);
-
   const navigate = useNavigate();
 
   return (
@@ -31,26 +26,13 @@ function App() {
               </Header>
               <Content>
                 <Keyword />
-                <PlaceList
-                  place={place}
-                  addPlace={addPlace}
-                  setAddPlace={setAddPlace}
-                />
+                <PlaceList />
               </Content>
             </>
           }
         />
 
-        <Route
-          path="/likepage"
-          element={
-            <LikePage
-              addPlace={addPlace}
-              setAddPlace={setAddPlace}
-              navigate={navigate}
-            />
-          }
-        />
+        <Route path="/likepage" element={<LikePage />} />
       </Routes>
     </>
   );

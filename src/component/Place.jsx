@@ -1,23 +1,17 @@
 import styled from "styled-components";
 import getCafeImage from "../Util/get-cafe-image";
+import LikeIcon from "./LikeIcon";
+import { useRecoilValue } from "recoil";
+import { PlaceDataState } from "../atom";
 
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-const Place = ({ place, addPlace, setAddPlace }) => {
-  const onClickAddPlace = (action) => {
-    const addItem = place.filter((placeItem) => placeItem.id === action.id);
-
-    if (addPlace.some((item) => item.id === action.id)) {
-      alert("동일한 장소가 좋아요 목록에 있습니다.");
-    } else if (addItem) {
-      setAddPlace([...addPlace, ...addItem]);
-    }
-  };
+const Place = () => {
+  const placeList = useRecoilValue(PlaceDataState);
 
   return (
     <Container>
@@ -32,7 +26,7 @@ const Place = ({ place, addPlace, setAddPlace }) => {
         }}
         loop={true}
       >
-        {place.map((item, i) => {
+        {placeList.map((item, i) => {
           return (
             <SwiperSlide key={item.id}>
               <PlaceItem>
@@ -45,16 +39,7 @@ const Place = ({ place, addPlace, setAddPlace }) => {
                 </PlaceBox>
                 <PlaceTitle>
                   <h4>{item.title}</h4>
-                  <LikeBtn
-                    onClick={() =>
-                      onClickAddPlace({
-                        id: item.id,
-                        title: item.title,
-                      })
-                    }
-                  >
-                    좋아요
-                  </LikeBtn>
+                  <LikeIcon item={item} />
                 </PlaceTitle>
               </PlaceItem>
             </SwiperSlide>
@@ -92,21 +77,6 @@ const PlaceBox = styled.div`
 const PlaceTitle = styled.div`
   display: flex;
   justify-content: space-between;
-`;
-
-const LikeBtn = styled.button`
-  &:active {
-    background-color: rgba(25, 183, 194, 0.694);
-  }
-  border: none;
-  background-color: rgb(25, 183, 194);
-  color: #fff;
-  width: 50px;
-  height: 25px;
-  line-height: 20px;
-  border-radius: 25px;
-  font-size: 12px;
-  cursor: pointer;
 `;
 
 const Prev = styled.button`

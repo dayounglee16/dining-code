@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import Place from "./Place";
 
-const PlaceList = ({ place, addPlace, setAddPlace }) => {
+const PlaceList = () => {
   return (
     <Relative>
       <Container>
-        <Place place={place} addPlace={addPlace} setAddPlace={setAddPlace} />
+        <Place />
       </Container>
     </Relative>
   );

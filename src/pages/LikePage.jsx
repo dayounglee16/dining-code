@@ -1,8 +1,14 @@
 import styled from "styled-components";
 import getCafeImage from "../Util/get-cafe-image";
 import mainlogo from "./../images/logo.png";
+import { LikeListAddItemState } from "../atom";
+import { useRecoilValue } from "recoil";
+import { useNavigate } from "react-router-dom";
 
-const LikePage = ({ addPlace, navigate }) => {
+const LikePage = () => {
+  const navigate = useNavigate();
+  const addPlaceItem = useRecoilValue(LikeListAddItemState);
+
   return (
     <Container>
       <Title>
@@ -15,8 +21,8 @@ const LikePage = ({ addPlace, navigate }) => {
         />
       </Title>
       <LikePlace>
-        {addPlace.length !== 0 ? (
-          addPlace.map((item, i) => (
+        {addPlaceItem.length !== 0 ? (
+          addPlaceItem.map((item, i) => (
             <PlaceItem key={i}>
               <img src={getCafeImage(item.id)} width="220px" alt={item.title} />
               <h4>{item.title}</h4>

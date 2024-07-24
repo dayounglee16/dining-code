@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const LikeListBtn = ({ navigate }) => {
+const LikeListBtn = () => {
+  const navigate = useNavigate();
   return <LikeBtn onClick={() => navigate("/likepage")}>좋아요 목록</LikeBtn>;
 };
 
