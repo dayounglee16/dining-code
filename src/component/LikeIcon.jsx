@@ -4,32 +4,27 @@ import { faHeart as faSolidHeart } from "@fortawesome/free-solid-svg-icons";
 
 import { LikeListAddItemState } from "../atom";
 import { useRecoilState } from "recoil";
-import { useState } from "react";
 
 const LikeIcon = ({ item }) => {
-  const [heartIcon, setHeartIcon] = useState(false);
   const [addPlaceItem, setAddPlaceItem] = useRecoilState(LikeListAddItemState);
 
   const onClickLike = () => {
-    const newHeartIcon = !heartIcon;
-    setHeartIcon(newHeartIcon);
-
-    if (newHeartIcon) {
-      if (!addPlaceItem.some((placeItem) => placeItem.id === item.id)) {
-        setAddPlaceItem([...addPlaceItem, item]);
-      }
-    } else {
+    if (addPlaceItem.find((placeItem) => placeItem.id === item.id)) {
       setAddPlaceItem(
         addPlaceItem.filter((placeItem) => placeItem.id !== item.id)
       );
+    } else {
+      setAddPlaceItem([...addPlaceItem, item]);
     }
   };
 
+  const isIncludes = addPlaceItem.find((placeItem) => placeItem.id === item.id);
+  console.log(isIncludes);
   return (
     <div>
       <FontAwesomeIcon
         className="buttons"
-        icon={heartIcon === false ? faHeart : faSolidHeart}
+        icon={isIncludes ? faSolidHeart : faHeart}
         size="lg"
         onClick={onClickLike}
       />
